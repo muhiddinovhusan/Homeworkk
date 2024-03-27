@@ -72,7 +72,7 @@ export const GlobalProvider = ({ children }) => {
   const getStudents = async () => {
     dispatch({ type: "PENDING" });
     try {
-      const res = await axios.get("http://localhost:3000/students");
+      const res = await axios.get("http://localhost:3000/studentss");
       console.log(res.data);
       dispatch({ type: "Success", payload: res.data });
     } catch (error) {
@@ -84,25 +84,25 @@ export const GlobalProvider = ({ children }) => {
 
 
 
-  // const addStudent = async (student) => {
-  //   try {
-  //     const res = await axios.post("http://localhost:3000/students", student);
-  //     dispatch({ type: "ADD_STUDENT", payload: res.data });
-  //   } catch (error) {
-  //     dispatch({ type: "Error" });
-  //   }
-  // };
+  const addStudent = async (student) => {
+    try {
+      const res = await axios.post("http://localhost:3000/studentss", student);
+      dispatch({ type: "ADD_STUDENT", payload: res.data });
+    } catch (error) {
+      dispatch({ type: "Error" });
+    }
+  };
 
 
   const deleteStudent = async (id) => {
-    await axios.delete(`http://localhost:3000/students/${id}`).then(() => {
+    await axios.delete(`http://localhost:3000/studentss/${id}`).then(() => {
       dispatch({ type: "DELETE_STUDENT", payload: id });
     });
   };
 
   const updateStudent = async (student) => {
     await axios
-      .put(`http://localhost:3000/students/${student.id}`, student)
+      .put(`http://localhost:3000/studentss/${student.id}`, student)
       .then((res) => {
         dispatch({ type: "UPDATE_STUDENT", payload: res.data });
       });
@@ -118,7 +118,7 @@ export const GlobalProvider = ({ children }) => {
       value={{
         students: state.students,
         getStudents,
-        // addStudent,
+        addStudent,
     updateStudent,
   deleteStudent
       }}

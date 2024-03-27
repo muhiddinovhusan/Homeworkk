@@ -129,12 +129,15 @@ const Students = () => {
             </table>
           </div>
         </div>
+
    <ModalContext.Provider  value={{ addModal:state.addModal, openModal,closeModal,
 editModal : state.editModal, closeEditModal, openEditModal
-  
-  }}>
+
+}}>
 <EditStudent/>
+  <GlobalProvider>
           <AddStudent  />
+    </GlobalProvider>
    </ModalContext.Provider>
       
       </div>

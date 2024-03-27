@@ -2,11 +2,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { ModalContext } from './Students';
 import { GlobalContext } from './stateManagment';
-import axios from 'axios';
 
 const AddStudent = () => {
   const { addModal, closeModal } = useContext(ModalContext);
-
+const {addStudent}=useContext(GlobalContext)
   const [student, setStudent] = useState({
     firstName: "",
     lastName: "",
@@ -16,22 +15,14 @@ const AddStudent = () => {
 
 
 
-
-  const handleSubmit = (e) => {
-
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    axios.post(`http://localhost:3000/products`, student).then(res => {
-      console.log(res)
-      navigate('/')
-    }
-    )
-  }
+addStudent(student);
+console.log(student)
+alert('he;o')
+  };
 
-  // const handleChange = (e) => {
-  //   setStudent({ ...student, [e.target.name]: e.target.value });
-  //   console.log(student);
-  // };
+  
   return (
 
 
@@ -44,6 +35,7 @@ const AddStudent = () => {
           <div className='mb-3'>
             <label htmlFor="firstName" className='form-label'>firstName</label>
             <input type="text"
+            
               className='form-control'
               id='firstName'
 value={student.firstName}
@@ -59,7 +51,8 @@ onChange={e => setStudent({ ...student, firstName: e.target.value })}
           </div>
           <div className='mb-3'>
 
-            <select name="gender" id="gender" className='form-select w-auto' >
+            <select name="gender" id="gender" className='form-select w-auto'
+            onChange={e => setStudent({ ...student, gender: e.target.value })} >
               <option value="All">Select</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -73,17 +66,18 @@ onChange={e => setStudent({ ...student, firstName: e.target.value })}
             onChange={e => setStudent({ ...student, number: e.target.value })}
             />
           </div>
-        </form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="primary" onClick={closeModal}>
+          <Button type="submit" variant="primary" >
         Add
        
         </Button>
-        <Button  type='submit' variant="secondary" onClick={closeModal}>
+        <Button   variant="secondary" onClick={closeModal}>
           Cancel
         </Button>
-      </Modal.Footer>
+        </form>
+      </Modal.Body>
+     
+      
+     
     </Modal></div>
   )
 }
