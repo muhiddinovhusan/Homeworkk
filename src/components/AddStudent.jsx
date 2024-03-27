@@ -66,14 +66,14 @@ onChange={e => setStudent({ ...student, firstName: e.target.value })}
             onChange={e => setStudent({ ...student, number: e.target.value })}
             />
           </div>
-          <Button type="submit" variant="primary" >
+        </form>
+          <Button type="submit" variant="primary" onClick={closeModal}>
         Add
        
         </Button>
         <Button   variant="secondary" onClick={closeModal}>
           Cancel
         </Button>
-        </form>
       </Modal.Body>
      
       
