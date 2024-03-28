@@ -29,17 +29,10 @@
       "number": 9989917784300
     },
     {
-      "id": "5",
-      "firstName": "Michael",
-      "lastName": "Robertson",
-      "group": "React N35",
-      "number": 998945322260
-    },
-    {
       "id": "7a7b",
       "firstName": "Husan",
       "lastName": "sss",
-      "group": "React N35",
+      "group": "React N40",
       "number": ""
     },
     {
@@ -61,9 +54,16 @@
       "id": "cf66",
       "firstName": "sa",
       "lastName": "hhhh",
-      "group": "",
+      "group": "React N35",
       "number": "5555555",
       "gender": "React N35"
+    },
+    {
+      "id": "7a86",
+      "firstName": "Xusan",
+      "lastName": "Muhiddinov",
+      "group": "React N45",
+      "number": "998996730502"
     }
   ]
 }

@@ -56,7 +56,7 @@ onChange={handleInputChange}            />
           </div>
           <div className='mb-3'>
 
-            <select name="gender" id="gender" className='form-select w-auto'
+            <select name="group" id="group" className='form-select w-auto'
             required
             value={student.group}
             onChange={handleInputChange}            
