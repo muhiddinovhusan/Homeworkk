@@ -30,6 +30,12 @@ const EditStudent = ({ student }) => {
     e.preventDefault();
     updateStudent(editedStudent)
     closeEditModal();
+    setEditedStudent({
+      firstName: '',
+      lastName: '',
+      gender: '',
+      number: '',
+    });
   };
 
   return (

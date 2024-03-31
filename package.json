@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "studentss": "json-server db.json --watch"
+    "students": "json-server db.json --watch",
+    "user": "json-server db2.json --watch"
   },
   "dependencies": {
     "axios": "^1.6.8",
@@ -17,6 +18,7 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {

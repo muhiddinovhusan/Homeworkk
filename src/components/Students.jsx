@@ -4,7 +4,6 @@ import { ButtonGroup, PageItem } from 'react-bootstrap';
 import { GlobalContext, GlobalProvider } from './stateManagment';
 import AddStudent from './AddStudent';
 import EditStudent from './EditStudent';
-import StyledCompBtn from './StyledCompBtn';
 
 
 const initialState = {
@@ -58,7 +57,7 @@ const Students = () => {
   const [filtered, setFiltered] = useState(students);
   const [filter, setFilter] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(5)
+  const [postsPerPage, setPostsPerPage] = useState(4)
 
 
 
@@ -151,6 +150,7 @@ const Students = () => {
     setSelectedStudent(student);
     console.log(setSelectedStudent)
     openEditModal();
+
   }
   
   return (
@@ -183,7 +183,7 @@ const Students = () => {
       </div>
       <div>
 
-        <div>
+        <div className='container'>
           <table className='table'>
             <thead>
               <tr>
@@ -207,8 +207,8 @@ const Students = () => {
                 
                   <td>{student.number}</td>
                   <td className='d-flex gap-2'>
-                    <StyledCompBtn  onClick={()=>handleEdit(student)}>Edit</StyledCompBtn>
-                    <StyledCompBtn variant="outline"  onClick={() => deleteStudent(student.id)}>Delete</StyledCompBtn>
+                    <button className='btn btn-sm btn-info'  onClick={()=>handleEdit(student)}>Edit</button>
+                    <button className='btn btn-sm btn-danger' onClick={() => deleteStudent(student.id)}>Delete</button>
                   </td>
                  <td></td>
                  <td></td>
@@ -230,7 +230,7 @@ const Students = () => {
 
       </ModalContext.Provider>
 
-      <div className="pagination">
+      <div className="pagination container">
                 <PageItem className="prev" disabled={!hasPrev} onClick={() => handleChange("prev")}>prev</PageItem>
 
                 {pages.map((page) => (

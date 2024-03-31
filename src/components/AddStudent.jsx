@@ -21,11 +21,13 @@ const AddStudent = () => {
     }));
   };
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     addStudent(student);
     console.log(student)
-   closeModal();
+    closeModal();
+  
   };
 
 
@@ -45,27 +47,27 @@ const AddStudent = () => {
               className='form-control'
               id='firstName'
               value={student.firstName}
-onChange={handleInputChange}            />
+              onChange={handleInputChange} />
           </div>
           <div className='mb-3'>
             <label htmlFor="lastName" className='form-label'>lastName</label>
-            <input  required type="text" className='form-control' id='lastName'
+            <input required type="text" className='form-control' id='lastName'
               value={student.lastName}
-              onChange={handleInputChange}            />
+              onChange={handleInputChange} />
 
           </div>
           <div className='mb-3'>
 
             <select name="group" id="group" className='form-select w-auto'
-            required
-            value={student.group}
-            onChange={handleInputChange}            
+              required
+              value={student.group}
+              onChange={handleInputChange}
 
-      >
+            >
               <option value="">Select</option>
               <option value='React N35'>React N35</option>
-                <option value='React N40'>React N40</option>
-                <option value='React N45'>React N45</option>
+              <option value='React N40'>React N40</option>
+              <option value='React N45'>React N45</option>
 
             </select>
           </div>
@@ -73,16 +75,16 @@ onChange={handleInputChange}            />
             <label htmlFor="number" className='form-label'>number</label>
             <input required type="number" className='form-control' id='number'
               value={student.number}
-              onChange={handleInputChange}            
-              />
+              onChange={handleInputChange}
+            />
           </div>
-        <Button type="submit" variant="primary">
-          Add
+          <Button type="submit" variant="primary">
+            Add
 
-        </Button>
-        <Button variant="secondary" onClick={closeModal}>
-          Cancel
-        </Button>
+          </Button>
+          <Button variant="secondary" onClick={closeModal}>
+            Cancel
+          </Button>
         </form>
       </Modal.Body>
 
