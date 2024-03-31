@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuth } from './AuthProvider';
 import { Link, NavLink } from 'react-router-dom';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import apple from '../assets/apple.webp'
+import apple from '../assets/s1cihnpc1cnekihotv0e.webp'
 const Header = () => {
   const { user } = useAuth();
 

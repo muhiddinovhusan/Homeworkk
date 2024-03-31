@@ -24,7 +24,8 @@ const RequireAuth = ({ children }) => {
   }
 else{
   
-  return children;
+  return   children;
+
 }
 };
 
