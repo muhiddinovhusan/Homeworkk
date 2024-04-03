@@ -1,9 +1,12 @@
 
 import { createContext, useContext, useEffect, useReducer, useState, } from 'react';
 import { ButtonGroup, PageItem } from 'react-bootstrap';
-import { GlobalContext, GlobalProvider } from './stateManagment';
-import AddStudent from './AddStudent';
-import EditStudent from './EditStudent';
+
+import { GlobalContext2 } from './teachStateManagment';
+import EditTeachers from './EditTeachers';
+import AddTeachers from './AddTeachers';
+import { Box, Button, MenuItem, TextField } from '@mui/material';
+import { Delete, Edit } from '@mui/icons-material';
 
 
 const initialState = {
@@ -43,18 +46,18 @@ const reducer = (state, action) => {
   }
 };
 
-const Students = () => {
+const Teachers = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const {
-    students,
-    getStudents,
-    deleteStudent, } = useContext(GlobalContext);
+    teachers,
+    getTeachers, deleteTeachers
+   } = useContext(GlobalContext2);
 
   useEffect(() => {
-    getStudents();
+    getTeachers();
   }, []);
 
-  const [filtered, setFiltered] = useState(students);
+  const [filtered, setFiltered] = useState(teachers);
   const [filter, setFilter] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(4)
@@ -67,7 +70,7 @@ const Students = () => {
   const currenPosts = filtered.slice(firstPostIndex, lastPostIndex);
 
   let pages = [];
-  const totalPosts = students.length
+  const totalPosts = teachers.length
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
       pages.push(i)
   }
@@ -91,7 +94,7 @@ const Students = () => {
   const handleProductSearch = (e) => {
     const text = e.target.value.trim().toLowerCase();
     setFiltered(
-      students.filter(
+      teachers.filter(
         (product) =>
           product.lastName.toLowerCase().includes(text) ||
           product.firstName.toLowerCase().includes(text)
@@ -107,18 +110,18 @@ const Students = () => {
     setFilter(e.target.value);
     const filter = e.target.value;
     if (filter === "All") {
-      setFiltered(students);
+      setFiltered(teachers);
     } else {
       setFiltered(
-        students.filter((product) => product.group === filter)
+        teachers.filter((product) => product.level === filter)
       );
     }
   };
 
 
   useEffect(() => {
-    setFiltered(students);
-  }, [students]);
+    setFiltered(teachers);
+  }, [teachers]);
 
 
 
@@ -142,13 +145,13 @@ const Students = () => {
 
 
 
-  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [selectedTeachers, setSelectedTeachers] = useState(null);
 
   // ...
 
-  const handleEdit = (student) => {
-    setSelectedStudent(student);
-    console.log(setSelectedStudent)
+  const handleEdit = (teacher) => {
+    setSelectedTeachers(teacher);
+    console.log(setSelectedTeachers)
     openEditModal();
 
   }
@@ -161,12 +164,13 @@ const Students = () => {
       <div className='container py-3'>
         <div>
           <ButtonGroup className='w-100'>
-            <input type="text"
+            {/* <input type="text"
             placeholder='Search'
             className='form-control p-2'
             onChange={handleProductSearch}
-            />
-            <select  name="filter" 
+            /> */}
+            <TextField size='medium' label="search" fullWidth onChange={handleProductSearch}/>
+            {/* <select  name="filter" 
             id="filter"
            className='form-select w-auto'
             onChange={handleFilter}
@@ -176,22 +180,32 @@ const Students = () => {
               <option value='React N35'>React N35</option>
                 <option value='React N40'>React N40</option>
                 <option value='React N45'>React N45</option>
-            </select>
+            </select> */}
+            <Box width={250}>
+              <TextField label='Select' select fullWidth    id="filter"
+              onChange={handleFilter} >
+
+              <MenuItem value='All'>All</MenuItem>
+              <MenuItem value='Junior'>Junior</MenuItem>
+              <MenuItem value='Middle'>Middle</MenuItem>
+              <MenuItem value='Senior'>Senior</MenuItem>
+              </TextField>
+            </Box>
             <button className='btn btn-outline-success w-auto' onClick={openModal}>Add</button>
           </ButtonGroup>
         </div>
       </div>
       <div>
 
-        <div className='container'>
-          <table className='table'>
+        <div className='container' >
+          <table className='table' >
             <thead>
               <tr>
                 <th>#</th>
                 <th>Firstname</th>
                 <th>Lastname</th>
-                <th>Group</th>
-                <th>Number</th>
+                <th>Groups</th>
+                <th>Level</th>
                 <th>Actions</th>
                 <th></th>
                 <th></th>
@@ -203,12 +217,12 @@ const Students = () => {
                   <td>{i + 1}</td>
                   <td>{student.firstName}</td>
                   <td>{student.lastName}</td>
-                  <td>{student.group}</td>
+                  <td>{student.groups}</td>
                 
-                  <td>{student.number}</td>
+                  <td>{student.level}</td>
                   <td className='d-flex gap-2'>
-                    <button className='btn btn-sm btn-info'  onClick={()=>handleEdit(student)}>Edit</button>
-                    <button className='btn btn-sm btn-danger' onClick={() => deleteStudent(student.id)}>Delete</button>
+                    <Button variant='contained' startIcon={<Edit/>} onClick={()=>handleEdit(student)} size='medium'>Edit</Button>
+                    <Button variant='contained'  color='error' startIcon={<Delete/>} onClick={() => deleteTeachers(student.id)}  size='medium'>Delete</Button>
                   </td>
                  <td></td>
                  <td></td>
@@ -225,8 +239,8 @@ const Students = () => {
 
       }}>
 
-        <AddStudent />
-        {state.editModal && <EditStudent student={selectedStudent} />}
+        <AddTeachers/>
+        {state.editModal && <EditTeachers student={selectedTeachers} />}
 
       </ModalContext.Provider>
 
@@ -249,4 +263,4 @@ const Students = () => {
   );
 };
 
-export default Students;
+export default Teachers;

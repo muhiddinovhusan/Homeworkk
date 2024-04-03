@@ -1,26 +1,20 @@
 import React, { useContext, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { ModalContext } from './Students';
-import { GlobalContext } from './stateManagment';
+import { ModalContext } from './Teachers';
+import { GlobalContext2 } from './teachStateManagment';
+import { Box, MenuItem, TextField } from '@mui/material';
 
-const EditStudent = ({ student }) => {
+const EditTeachers = ({ student }) => {
   const { editModal, closeEditModal } = useContext(ModalContext);
-  const { updateStudent } = useContext(GlobalContext);
+  const { updateTeacher } = useContext(GlobalContext2);
 
-  const [editedStudent, setEditedStudent] = useState(student);
+  const [editedTeacher, setEditedTeacher] = useState(student);
 
-  // const handleInputChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setEditedStudent((prevStudent) => ({
-  //     ...prevStudent,
-  //     [name]: value,
-  //   }));
-  //   console.log(event.target.value)
-  // };
+
 
   const handleInputChange = (e) => {
-    setEditedStudent({
-      ...editedStudent,
+    setEditedTeacher({
+      ...editedTeacher,
       [e.target.id]: e.target.value
     })
   }
@@ -28,13 +22,13 @@ const EditStudent = ({ student }) => {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    updateStudent(editedStudent)
+    updateTeacher(editedTeacher)
     closeEditModal();
-    setEditedStudent({
+    setEditedTeacher({
       firstName: '',
       lastName: '',
-      gender: '',
-      number: '',
+      groups : [],
+    level:''
     });
   };
 
@@ -54,7 +48,7 @@ const EditStudent = ({ student }) => {
                 type='text'
                 className='form-control'
                 id='firstName'
-                value={editedStudent.firstName}
+                value={editedTeacher.firstName}
                 onChange={handleInputChange}
 
               />
@@ -67,35 +61,65 @@ const EditStudent = ({ student }) => {
                 type='text'
                 className='form-control'
                 id='lastName'
-                value={editedStudent.lastName}
+                value={editedTeacher.lastName}
                 onChange={handleInputChange}
               />
             </div>
             <div className='mb-3'>
-              <select
+              {/* <select
                 name='group'
                 id='group'
                 className='form-select w-auto'
-                value={editedStudent.group}
+                value={editedTeacher.groups}
                 onChange={handleInputChange}
               >
                 <option value='All'>Select</option>
                 <option value='React N35'>React N35</option>
                 <option value='React N40'>React N40</option>
                 <option value='React N45'>React N45</option>
-              </select>
-            </div>
-            <div className='mb-3 form-check'>
-              <label htmlFor='number' className='form-label'>
-                number
+              </select> */}
+                     <label htmlFor='groups' className='form-label'>
+                groups
               </label>
               <input
+                type='text'
+                className='form-control'
+                id='groups'
+                value={editedTeacher.groups}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className='mb-3 form-check'>
+              {/* <label htmlFor='level' className='form-label'>
+                groups */}
+              {/* <input
                 type='number'
                 className='form-control'
                 id='number'
-                value={editedStudent.number}
+                value={editedTeacher.level}
                 onChange={handleInputChange}
-              />
+              /> */}
+                  <select
+                name='level'
+                id='level'
+                className='form-select w-auto'
+               
+              >
+                <option value='Junior'>Junior</option>
+                <option value='Middle'>Middle</option>
+                <option value='Senior'>Senior</option>
+              </select>
+              {/* <Box  width={250}>
+              <TextField required  label='Select'  select fullWidth   value={editedTeacher.level}
+                onChange={handleInputChange}  id="level" name='level'
+              >
+
+            
+              <MenuItem value='Junior'>Junior</MenuItem>
+              <MenuItem value='Middle'>Middle</MenuItem>
+              <MenuItem value='Senior'>Senior</MenuItem>
+              </TextField>
+            </Box> */}
             </div>
             <Button type='submit' variant='primary'>
               Edit
@@ -110,4 +134,4 @@ const EditStudent = ({ student }) => {
   );
 };
 
-export default EditStudent;
+export default EditTeachers;

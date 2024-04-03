@@ -1,41 +1,40 @@
 import axios from 'axios';
 import { createContext, useEffect, useReducer } from 'react';
-import Students from './Students';
 
 const initialState = {
-  students: [],
+  teachers: [],
 
 
 };
 
-export const GlobalContext = createContext(initialState);
+export const GlobalContext2 = createContext(initialState);
 const reducer = (state, action) => {
   switch (action.type) {
     case "PENDING":
       return {
         ...state,
   
-        students: [],
+         teachers: [],
        
       };
     case "Success":
       return {
         ...state,
  
-        students: action.payload,
+        teachers: action.payload,
       
       };
     case "Error":
       return {
         ...state,
       
-        students: [],
+        teachers: [],
         error: "Something went wrong",
       };
     case "ADD_STUDENT":
       return { ...state,
         
-         students: [...state.students, action.payload] };
+         teachers: [...state.teachers, action.payload] };
     case "OPEN_MODAL":
       return {
         ...state,
@@ -49,14 +48,14 @@ const reducer = (state, action) => {
       case "DELETE_STUDENT":
         return {
           ...state,
-          students: state.students.filter(
+          teachers: state.teachers.filter(
             (student) => student.id !== action.payload
           ),
         };
         case "UPDATE_STUDENT":
           return {
             ...state,
-            students: state.students.map((student) => {
+            teachers: state.teachers.map((student) => {
               return student.id == action.payload.id ? action.payload : student;
             }),
           };
@@ -66,13 +65,13 @@ const reducer = (state, action) => {
 };
 
 
-export const GlobalProvider = ({ children }) => {
+export const GlobalProvider2 = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const getStudents = async () => {
+  const getTeachers = async () => {
     dispatch({ type: "PENDING" });
     try {
-      const res = await axios.get("http://localhost:3000/studentss");
+      const res = await axios.get("http://localhost:3000/teachers");
       console.log(res.data);
       dispatch({ type: "Success", payload: res.data });
     } catch (error) {
@@ -84,9 +83,9 @@ export const GlobalProvider = ({ children }) => {
 
 
 
-  const addStudent = async (student) => {
+  const addTeacher= async (teacher) => {
     try {
-      const res = await axios.post("http://localhost:3000/studentss", student);
+      const res = await axios.post("http://localhost:3000/teachers", teacher);
       dispatch({ type: "ADD_STUDENT", payload: res.data });
     } catch (error) {
       dispatch({ type: "Error" });
@@ -94,15 +93,22 @@ export const GlobalProvider = ({ children }) => {
   };
 
 
-  const deleteStudent = async (id) => {
-    await axios.delete(`http://localhost:3000/studentss/${id}`).then(() => {
-      dispatch({ type: "DELETE_STUDENT", payload: id });
-    });
+  const deleteTeachers = async (id) => {
+    const confirm = window.confirm('Are you sure you want to log out?');
+    if (confirm) {
+
+      await axios.delete(`http://localhost:3000/teachers/${id}`).then(() => {
+        dispatch({ type: "DELETE_STUDENT", payload: id });
+      });
+    } else {
+      alert('the action was cancelled')
+    }
+   
   };
 
-  const updateStudent = async (student) => {
+  const updateTeacher= async (student) => {
     await axios
-      .put(`http://localhost:3000/studentss/${student.id}`, student)
+      .put(`http://localhost:3000/teachers/${student.id}`, student)
       .then((res) => {
         dispatch({ type: "UPDATE_STUDENT", payload: res.data });
       });
@@ -114,17 +120,17 @@ export const GlobalProvider = ({ children }) => {
 
 
   return (
-    <GlobalContext.Provider
+    <GlobalContext2.Provider
       value={{
-        students: state.students,
-        getStudents,
-        addStudent,
-    updateStudent,
-  deleteStudent
+        teachers: state.teachers,
+      getTeachers,
+      addTeacher,
+      deleteTeachers,
+      updateTeacher,
       }}
     >
       {children}
       
-    </GlobalContext.Provider>
+    </GlobalContext2.Provider>
   );
 };
